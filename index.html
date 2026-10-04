@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA — Study Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>✦</span>
+            NOVA
+        </div>
+
+        <p class="menu-title">MENU</p>
+
+        <nav>
+            <button class="nav-item active" data-section="dashboard">
+                <span>⌂</span> Dashboard
+            </button>
+
+            <button class="nav-item" data-section="subjects">
+                <span>▦</span> Subjects
+            </button>
+
+            <button class="nav-item" data-section="tasks">
+                <span>✓</span> Tasks
+            </button>
+
+            <button class="nav-item" data-section="planner">
+                <span>◷</span> Planner
+            </button>
+
+            <button class="nav-item" data-section="analytics">
+                <span>◒</span> Analytics
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="nav-item" data-section="settings">
+                <span>⚙</span> Settings
+            </button>
+
+            <button class="theme-btn" id="themeToggle">
+                <span>☾</span> Dark Mode
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+
+            <div>
+                <p class="welcome-small">GOOD MORNING</p>
+                <h1>Ready to study?</h1>
+            </div>
+
+            <div class="profile">
+                <div class="profile-avatar">M</div>
+                <div>
+                    <strong>Student</strong>
+                    <small>Keep going ✦</small>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- Dashboard -->
+        <section class="page-section active-section" id="dashboard">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR OVERVIEW</p>
+                    <h2>Today's Progress</h2>
+                </div>
+
+                <span class="date-display" id="todayDate"></span>
+            </div>
+
+
+            <!-- Stats -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Tasks Completed</span>
+                        <strong id="completedCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◷</div>
+                    <div>
+                        <span>Study Time</span>
+                        <strong id="studyTime">0h</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">▦</div>
+                    <div>
+                        <span>Subjects</span>
+                        <strong id="subjectCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">★</div>
+                    <div>
+                        <span>Study Streak</span>
+                        <strong id="streakCount">0 days</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+
+                <!-- Today's Tasks -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <p class="eyebrow">TASKS</p>
+                            <h3>Today's Tasks</h3>
+                        </div>
+
+                        <button class="small-btn" data-open="tasks">
+                            + Add Task
+                        </button>
+                    </div>
+
+                    <div id="dashboardTasks" class="task-list">
+                        <div class="empty-state">
+                            <span>✓</span>
+                            <p>No tasks yet</p>
+                            <small>Add your first task to get started.</small>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Quick Study -->
+                <div class="panel focus-panel">
+
+                    <p class="eyebrow">FOCUS</p>
+                    <h3>Quick Study Session</h3>
+
+                    <div class="timer" id="timer">
+                        25:00
+                    </div>
+
+                    <div class="timer-controls">
+                        <button id="startTimer" class="primary-btn">
+                            Start
+                        </button>
+
+                        <button id="resetTimer" class="secondary-btn">
+                            Reset
+                        </button>
+                    </div>
+
+                    <p class="timer-note">
+                        Stay focused. You've got this.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Subjects -->
+        <section class="page-section" id="subjects">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">ORGANIZE</p>
+                    <h2>My Subjects</h2>
+                </div>
+
+                <button class="primary-btn" id="addSubjectBtn">
+                    + Add Subject
+                </button>
+            </div>
+
+            <div class="subjects-grid" id="subjectsGrid">
+
+                <div class="empty-state large-empty">
+                    <span>▦</span>
+                    <h3>No subjects yet</h3>
+                    <p>Add subjects to organize your study plan.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tasks -->
+        <section class="page-section" id="tasks">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">TO-DO</p>
+                    <h2>My Tasks</h2>
+                </div>
+
+                <button class="primary-btn" id="addTaskBtn">
+                    + Add Task
+                </button>
+            </div>
+
+            <div class="task-filters">
+
+                <button class="filter-btn active" data-filter="all">
+                    All
+                </button>
+
+                <button class="filter-btn" data-filter="pending">
+                    Pending
+                </button>
+
+                <button class="filter-btn" data-filter="completed">
+                    Completed
+                </button>
+
+            </div>
+
+            <div class="full-task-list" id="taskList">
+
+                <div class="empty-state large-empty">
+                    <span>✓</span>
+                    <h3>No tasks yet</h3>
+                    <p>Create a task and start planning your day.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Planner -->
+        <section class="page-section" id="planner">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">SCHEDULE</p>
+                    <h2>Study Planner</h2>
+                </div>
+
+                <button class="primary-btn" id="addSessionBtn">
+                    + Add Study Time
+                </button>
+            </div>
+
+            <div class="planner-card">
+
+                <div class="planner-header">
+                    <span>TIME</span>
+                    <span>SUBJECT</span>
+                    <span>ACTIVITY</span>
+                    <span>STATUS</span>
+                </div>
+
+                <div id="plannerList">
+
+                    <div class="empty-state large-empty">
+                        <span>◷</span>
+                        <h3>No study sessions</h3>
+                        <p>Add your study schedule here.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Analytics -->
+        <section class="page-section" id="analytics">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">INSIGHTS</p>
+                    <h2>Your Analytics</h2>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+
+                <div class="analytics-card">
+                    <p>Total Tasks</p>
+                    <strong id="analyticsTasks">0</strong>
+                </div>
+
+                <div class="analytics-card">
+                    <p>Completed</p>
+                    <strong id="analyticsCompleted">0</strong>
+                </div>
+
+                <div class="analytics-card">
+                    <p>Study Sessions</p>
+                    <strong id="analyticsSessions">0</strong>
+                </div>
+
+                <div class="analytics-card">
+                    <p>Subjects</p>
+                    <strong id="analyticsSubjects">0</strong>
+                </div>
+
+            </div>
+
+            <div class="panel progress-panel">
+
+                <p class="eyebrow">PROGRESS</p>
+                <h3>Task Completion</h3>
+
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+
+                <p id="progressText">0% completed</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Settings -->
+        <section class="page-section" id="settings">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">PREFERENCES</p>
+                    <h2>Settings</h2>
+                </div>
+            </div>
+
+            <div class="settings-card">
+
+                <div class="setting-row">
+                    <div>
+                        <strong>Dark Mode</strong>
+                        <p>Change the appearance of NOVA.</p>
+                    </div>
+
+                    <button class="toggle-btn" id="settingsThemeToggle">
+                        <span></span>
+                    </button>
+                </div>
+
+                <div class="setting-row">
+                    <div>
+                        <strong>Study Planner</strong>
+                        <p>Your data is saved automatically in your browser.</p>
+                    </div>
+
+                    <span class="status-badge">Local Storage</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Add Task Modal -->
+    <div class="modal" id="taskModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" data-close="taskModal">
+                ×
+            </button>
+
+            <p class="eyebrow">NEW TASK</p>
+            <h2>Add a Task</h2>
+
+            <form id="taskForm">
+
+                <label>Task Name</label>
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="e.g. Complete HTML chapter"
+                    required
+                >
+
+                <label>Subject</label>
+                <input
+                    type="text"
+                    id="taskSubject"
+                    placeholder="e.g. Web Development"
+                >
+
+                <label>Time</label>
+                <input
+                    type="time"
+                    id="taskTime"
+                >
+
+                <button type="submit" class="primary-btn full-btn">
+                    Add Task
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Add Subject Modal -->
+    <div class="modal" id="subjectModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" data-close="subjectModal">
+                ×
+            </button>
+
+            <p class="eyebrow">NEW SUBJECT</p>
+            <h2>Add a Subject</h2>
+
+            <form id="subjectForm">
+
+                <label>Subject Name</label>
+                <input
+                    type="text"
+                    id="subjectName"
+                    placeholder="e.g. Database"
+                    required
+                >
+
+                <label>Color</label>
+                <input
+                    type="color"
+                    id="subjectColor"
+                    value="#6c63ff"
+                >
+
+                <button type="submit" class="primary-btn full-btn">
+                    Add Subject
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Add Study Session Modal -->
+    <div class="modal" id="sessionModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" data-close="sessionModal">
+                ×
+            </button>
+
+            <p class="eyebrow">NEW SESSION</p>
+            <h2>Add Study Time</h2>
+
+            <form id="sessionForm">
+
+                <label>Subject</label>
+                <input
+                    type="text"
+                    id="sessionSubject"
+                    placeholder="e.g. CSS"
+                    required
+                >
+
+                <label>Activity</label>
+                <input
+                    type="text"
+                    id="sessionActivity"
+                    placeholder="e.g. Flexbox practice"
+                    required
+                >
+
+                <label>Time</label>
+                <input
+                    type="time"
+                    id="sessionTime"
+                    required
+                >
+
+                <button type="submit" class="primary-btn full-btn">
+                    Add Session
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
